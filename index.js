@@ -1,9 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const url = 'mongodb+srv://vicky1:XuP4pp9oXvMTPQGB@cluster0.waytbzt.mongodb.net/?retryWrites=true&w=majority'
+require('dotenv').config()
+const url = 'mongodb+srv://vicky1:U4dYHbyOPyCIx9k3@cluster0.waytbzt.mongodb.net/?retryWrites=true&w=majority'
 
 const router = require('./routers')
-
+var PORT = process.env.PORT || 8000
 const app = express()
 app.use(express.json())
 mongoose.connect(url,{
@@ -13,11 +14,11 @@ mongoose.connect(url,{
 const con = mongoose.connection
 
 con.on('open',()=>{
-    console.log('connected');
+    console.log('connected',process.env.PORT);
 })
 
 app.use('/',router)
 
-app.listen(9000,()=>{
+app.listen(PORT,()=>{
     console.log('server');
 })
